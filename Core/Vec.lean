@@ -222,12 +222,5 @@ intro i; simp [Vect.zip]
 theorem Vect.map_cons {f : Q -> P} {v : Vect n Q} {v' : Vect (n + 1) P} {q : Q} :
   v' = (λ i => f ((Vect.cons q v) i)) ->
   v' = Vect.cons (f q) (λ i => (f (v i))) := by
-intro h
-revert v' v;
-intro v
-apply v.induction
-case nil => simp
-case cons =>
-  intro n hd tl ih1
-  intro v' ih2
-  sorry
+intro h; subst h; funext i
+induction i using Fin.induction <;> simp [Vect.cons]
